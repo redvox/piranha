@@ -20,7 +20,10 @@ def upload_data(bucket, key, data, content_type='application/json'):
 
 
 def get_json(bucket, key):
-    return json.loads(get_data(bucket, key))
+    data = get_data(bucket, key)
+    if data:
+        return json.loads(data)
+    return None
 
 
 def upload_json(bucket, key, data, content_type='application/json'):
