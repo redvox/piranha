@@ -15,10 +15,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/redvox/piranha",
     packages=setuptools.find_packages(),
-    classifiers=(
+    classifiers=[
         "Development Status :: 1 - Planning",
         "Programming Language :: Python :: 3",
-        'Intended Audience :: Developers',
+        "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-    )
+    ]
 )
