@@ -19,6 +19,12 @@ def upload_data(bucket, key, data, content_type='application/json'):
     bucket.put_object(Key=key, Body=data, ContentType=content_type)
 
 
+def upload_file(bucket, key, file_path, content_type='application/json'):
+    with open(file_path, "rb") as fh:
+        data = fh.read()
+    upload_data(bucket, key, data, content_type)
+
+
 def get_json(bucket, key):
     data = get_data(bucket, key)
     if data:
