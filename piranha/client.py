@@ -16,7 +16,7 @@ def assume_role(account, role):
     sts = boto3.client('sts')
     response = sts.assume_role(RoleArn=f'arn:aws:iam::{account}:role/{role}',
                                RoleSessionName=f'{role}-session-{account}')
-    if not response or not response['ResponseMetadata']['HTTPStatusCode'] == 200:
+    if not response:
         raise Exception(f'could not assume {role} in {account}')
     return boto3.Session(
         aws_access_key_id=response['Credentials']['AccessKeyId'],

@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def get_data(bucket, key):
+def fetch(bucket, key):
     s3 = boto3.resource('s3')
     try:
         obj = s3.Object(bucket, key)
@@ -13,24 +13,23 @@ def get_data(bucket, key):
         return None
 
 
-def upload_data(bucket, key, data, content_type='application/json'):
+def upload(bucket, key, data, content_type):
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(bucket)
     bucket.put_object(Key=key, Body=data, ContentType=content_type)
 
 
-def upload_file(bucket, key, file_path, content_type='application/json'):
+def upload_file(bucket, key, file_path, content_type):
     with open(file_path, "rb") as fh:
-        data = fh.read()
-    upload_data(bucket, key, data, content_type)
+        upload(bucket, key, fh.read(), content_type)
 
 
-def get_json(bucket, key):
-    data = get_data(bucket, key)
+def fetch_json(bucket, key):
+    data = fetch(bucket, key)
     if data:
         return json.loads(data)
     return None
 
 
-def upload_json(bucket, key, data, content_type='application/json'):
-    upload_data(bucket, key, json.dumps(data), content_type)
+def upload_json(bucket, key, data):
+    upload(bucket, key, json.dumps(data), 'application/json')
