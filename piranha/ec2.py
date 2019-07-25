@@ -1,5 +1,3 @@
-import os
-
 from piranha.client import get_client
 
 
