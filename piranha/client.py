@@ -2,11 +2,13 @@ from os import environ
 import boto3
 
 
-def get_client(service, region):
+def get_client(service, region=None):
     if 'AWS_PROFILE' in environ:
         session = boto3.Session(profile_name=environ['AWS_PROFILE'])
     else:
         session = boto3.Session()
+    if region is None:
+        region = environ['REGION']
     return session.client(service, region_name=region)
 
 
